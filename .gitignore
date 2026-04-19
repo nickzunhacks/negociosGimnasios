@@ -1,0 +1,21 @@
+# entorno virtual
+venv/
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# base de datos local
+*.db
+*.sqlite3
+
+# IDE
+.idea/
+.vscode/
+
+# sistema operativo
+.DS_Store
+Thumbs.db
