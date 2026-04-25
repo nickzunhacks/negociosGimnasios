@@ -1,0 +1,5 @@
+#se ignora entorno virtual
+.venv
+
+#se ignora carpeta de .idea
+.idea
