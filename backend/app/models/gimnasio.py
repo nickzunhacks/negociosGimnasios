@@ -3,12 +3,11 @@ from models.tipos_gimnasio import TiposGimnasios
 from models.equipment import EquipmentId, Equipment
 
 class GimnasioEntrada(BaseModel):
-    id_gimnasio: int = Field(...)
+    id_company: int = Field(gt=0)
     name: str = Field(..., max_length= 64)
     typeGym: TiposGimnasios = Field(...)
-    equipment: list[Equipment] = Field(...)
-    multilocation: bool = False
-    locationNumber: int = 1
+    address: str = Field(..., max_length=64)
+    city: str = Field(..., max_length=64)
     pool: bool = False
     poolNumber: int = 0
     boxingRing: bool = False
@@ -16,11 +15,11 @@ class GimnasioEntrada(BaseModel):
 
 class GimnasioSalida(BaseModel):
     id_gimnasio: int = Field(...)
+    id_company: int = Field(gt=0)
     name: str = Field(..., max_length=64)
     typeGym: TiposGimnasios = Field(...)
-    equipment: list[EquipmentId] = Field(...)
-    multilocation: bool = False
-    locationNumber: int = 1
+    address: str = Field(..., max_length=64)
+    city: str = Field(..., max_length=64)
     pool: bool = False
     poolNumber: int = 0
     boxingRing: bool = False
