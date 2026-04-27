@@ -1,10 +1,10 @@
 from pathlib import Path
 
-ruta = Path(__file__).parent.parent.parent.parent
+ruta = Path.cwd()
 
 def necesitanCrearse() -> bool:
 
-    lista_archivos_necesarios = ["gimnasios.csv","equipment.csv"]
+    lista_archivos_necesarios = ["gimnasios.csv","equipment.csv","companies.csv"]
 
     estanTodos = True
 
@@ -13,5 +13,5 @@ def necesitanCrearse() -> bool:
             estanTodos = False
             print("no existe ",i)
 
-    return estanTodos
+    return not estanTodos
 
