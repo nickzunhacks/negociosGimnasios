@@ -2,7 +2,7 @@ import pandas as pd
 
 def find_company_id(id:int):
     dataFrame = pd.read_csv('companies.csv')
-    filtrado = dataFrame[dataFrame['id_company'] == id]
+    filtrado = dataFrame[ (dataFrame['id_company'] == id) & (dataFrame['activo'] == True) ]
 
     if filtrado.empty:
         print("company no encontrado")
