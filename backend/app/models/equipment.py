@@ -9,3 +9,4 @@ class Equipment(BaseModel):
 
 class EquipmentId(Equipment):
     id_equipment: int = Field(...)
+    activo: bool = True

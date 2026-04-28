@@ -13,17 +13,9 @@ class GimnasioEntrada(BaseModel):
     boxingRing: bool = False
     boxingRingNumber: int = 0
 
-class GimnasioSalida(BaseModel):
+class GimnasioSalida(GimnasioEntrada):
     id_gimnasio: int = Field(...)
-    id_company: int = Field(gt=0)
-    name: str = Field(..., max_length=64)
-    typeGym: TiposGimnasios = Field(...)
-    address: str = Field(..., max_length=64)
-    city: str = Field(..., max_length=64)
-    pool: bool = False
-    poolNumber: int = 0
-    boxingRing: bool = False
-    boxingRingNumber: int = 0
+    activo: bool = True
 
 """class GimnasioId(Gimnasio):
     id_gimnasio: int = Field(...)

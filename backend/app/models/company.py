@@ -9,3 +9,4 @@ class CompanyEntrada(BaseModel):
 
 class CompanySalida(CompanyEntrada):
     id_company: int = Field(gt=0)
+    activo: bool = True
