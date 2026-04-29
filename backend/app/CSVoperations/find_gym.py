@@ -1,5 +1,6 @@
 import pandas as pd
 from CSVoperations.find_company import find_company_id
+from models.tipos_gimnasio import  TiposGimnasios
 
 def find_gym_id(id: int):
 
@@ -22,3 +23,12 @@ def find_gym_id_company(id: int):
 
     gimnasios = dataFrame[dataFrame['id_company'] == company_id]
     return gimnasios.to_dict('records')
+
+def find_gyms_category(category: TiposGimnasios):
+    dataFrame = pd.read_csv('gimnasios.csv')
+    category_gym = dataFrame[dataFrame['typeGym'] == category.value]
+
+    if category_gym.empty:
+        return {"Error":"No existe gimnasio con esta categorita"}
+
+    return category_gym.to_dict('records')
