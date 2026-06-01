@@ -1,5 +1,9 @@
 # entorno virtual
 venv/
+myvenv
+.venv
+
+# Variables de entorno
 .env
 
 # Python

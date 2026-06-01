@@ -1,11 +1,14 @@
 from sqlmodel import Session, create_engine, SQLModel
 from fastapi import FastAPI, Depends
 from typing import Annotated
+from dotenv import load_dotenv
+import os
 
-sql_name = "gymapp.db" #nombre de base de datos
-sql_url = f"sqlite:///{sql_name}" # la url simplemente es sqlite:/// y el nombre de base de datos
+load_dotenv() # Carga las variables de entorno puestas en el .env
 
-engine = create_engine(sql_url) # El motor es creada por la funcuon create_engine y como parametro recibe la url esplicada arriba
+SQLITE_URL = os.getenv("sqlite") # Variable de entorno para crecenciales sensibles
+
+engine = create_engine(SQLITE_URL) # El motor es creada por la funcuon create_engine y como parametro recibe la url esplicada arriba
 
 def create_all_tables(app: FastAPI): # Funcion que crea todas las tablas antes de que inicie la app
     SQLModel.metadata.create_all(engine)

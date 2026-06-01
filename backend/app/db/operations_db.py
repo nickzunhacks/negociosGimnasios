@@ -1,27 +1,29 @@
 from sqlmodel import Session, select
-from models.Location import Location
-from models.Company import Company
+from models.location import Location, LocationId
+from models.company import Company, CompanyId
 
 def create_company(company: Company, session: Session):
-    session.add(company)
+    new_company = CompanyId.model_validate(company)
+    session.add(new_company)
     session.commit()
-    session.refresh(company)
-    return company
+    session.refresh(new_company)
+    return new_company
 
 def create_location(location: Location, session: Session):
-    session.add(location)
+    new_location = LocationId.model_validate(location)
+    session.add(new_location)
     session.commit()
-    session.refresh(location)
-    return location
+    session.refresh(new_location)
+    return new_location
 
 def show_companies(session: Session):
-    companies = session.exec(select(Company)).all()
+    companies = session.exec(select(CompanyId)).all()
     return companies
 
 def show_locations_all(session: Session):
-    locations = session.exec(select(Location)).all()
+    locations = session.exec(select(LocationId)).all()
     return locations
 
 def show_locations(session: Session, id_company: int):
-    locations = session.exec(select(Location).where(Location.id_company == id_company)).all()
+    locations = session.exec(select(LocationId).where(LocationId.id_company == id_company)).all()
     return locations
