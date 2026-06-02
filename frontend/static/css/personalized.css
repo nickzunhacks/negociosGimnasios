@@ -1,0 +1,26 @@
+.text-green-pastel{
+    color: #c1ff85
+}
+
+.container-gym {
+    background-color: rgb(124 124 124 / 0.48);
+    border: 1px solid #c1ff85;
+
+}
+
+.input-gym {
+    background-color: rgb(124 124 124 / 0.48);
+    color: white;
+    border: 1px solid #989898;
+    padding: 6px 12px;
+    width: 50%;
+    min-width: 250px;
+}
+
+.input-gym:focus {
+    background-color: rgb(124 124 124 / 0.48);
+    border-color: #c1ff85;
+    box-shadow: 0 0 0 3px rgb(193 255 133 / 0.3);
+    color: white;
+    outline: none;
+}
