@@ -1,0 +1,59 @@
+{% extends 'header.html' %}
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('static', path='css/home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/mapa.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<body>
+
+    {% include 'navbar.html' %}
+
+    <div class="container d-flex justify-content-center align-items-center gap-3 p-2 mt-4">
+
+        <div class="container bg-dark text-white d-flex justify-content-center rounded-3 p-2 gap-3">
+
+            <input class="form-control form-control-sm flex-grow-1"
+                   type="text" placeholder="nombre gimnasio"
+                   aria-label=".form-control-lg example"
+            >
+
+            <select class="form-select w-auto" aria-label="Default select example">
+            <option selected>categoria</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+            </select>
+
+        </div>
+
+        <button type="button" class="btn btn-primary">Buscar</button>
+
+    </div>
+
+    <div class="mt-5 d-flex justify-content-center">
+        <div id="map"></div>
+
+        <div class="card" style="width: 18rem;">
+            <img id="img" src="https://www.2playbook.com/uploads/s1/39/92/67/lifter-crew-valencia-8.jpeg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 id="nombre" class="card-title">titulo gym</h5>
+                <p id="descripcion" class="card-text">descripcion gimnasio</p>
+                <a href="#" class="btn btn-primary">ver gimnasio</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const GYMS = {{ locations | tojson }};
+    </script>
+
+    <script src="{{ url_for('static', path='mapa.js') }}"></script>
+
+</body>
+</html>
+
+{% endblock %}
