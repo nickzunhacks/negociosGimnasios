@@ -9,6 +9,8 @@ SUPRABASE_BUCKET = os.getenv("SUPRABASE_BUCKET")
 SUPRABASE_KEY = os.getenv("SUPABASE_KEY")
 SUPRABASE_URL = os.getenv("SUPABASE_URL")
 
+print(SUPRABASE_KEY)
+
 def suprabase_client():
     if not SUPRABASE_KEY or not SUPRABASE_URL:
         return None
@@ -25,12 +27,14 @@ def save_img(file: UploadFile):
     path = file.filename
     content_type = file.content_type
 
+    print(content_type)
+
     supaclient = suprabase_client()
 
     response = supaclient.storage.from_(SUPRABASE_BUCKET).upload(
         path = path,
         file = content,
-        file_options= {"content_type": content_type},
+        file_options= {"content-type":file.content_type},
     )
 
     url = (supaclient.storage.from_(SUPRABASE_BUCKET).get_public_url(path))
