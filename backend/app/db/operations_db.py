@@ -1,5 +1,6 @@
-from sqlmodel import Session, select
-from fastapi import UploadFile
+from sqlmodel import Session, select, or_, and_
+
+from models.gymTypes import GymTypes
 from models.location import Location, LocationId
 from models.company import Company, CompanyId
 from middlewares.geolocation_converter import coordenadas
@@ -12,17 +13,8 @@ def create_company(company: Company, session: Session):
     session.refresh(new_company)
     return new_company
 
-async def create_location(location: Location, img: UploadFile, session: Session):
+async def create_location(location: Location, session: Session):
     new_location = LocationId.model_validate(location)
-    print(f"Buscando: {new_location.address}...")
-    coord = await coordenadas(location.address)
-    print(f"resultado: {coord}")
-    print("guardando imagen...")
-    imagen = save_img(img)
-    print("imagen guardada!: ", imagen)
-    new_location.latitude = coord[0]
-    new_location.longitude = coord[1]
-    new_location.photo_url = imagen
     session.add(new_location)
     session.commit()
     session.refresh(new_location)
@@ -39,3 +31,16 @@ def show_locations_all(session: Session):
 def show_locations(session: Session, id_company: int):
     locations = session.exec(select(LocationId).where(LocationId.id_company == id_company)).all()
     return locations
+
+def show_location_category(category: GymTypes, session: Session):
+    return session.exec(select(LocationId).where(LocationId.type_gym == category)).all()
+
+def show_locations_filtered(name: str, category: GymTypes, session: Session):
+    if name == "":
+        return show_location_category(category, session)
+
+    return session.exec(
+        select(LocationId).where(
+            and_(LocationId.name == name, LocationId.type_gym == category)
+        )
+    ).all()
