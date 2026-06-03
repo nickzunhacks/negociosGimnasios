@@ -12,6 +12,7 @@ GYMS.forEach(gym => {
     marker.on("click", () => {
         document.getElementById('nombre').textContent = gym.name
         document.getElementById('descripcion').textContent = gym.description
+        document.getElementById('img').src = gym.photo_url
     }) // card al hacer click en el market, se ve un overview del gimnasio
 })
 
