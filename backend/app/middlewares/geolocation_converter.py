@@ -14,7 +14,7 @@ async def coordenadas(address: str):
         response = await client.get(url, params=params)
         data = response.json()
 
-    print(data)
+    print("coordenadas: ",data)
 
     if not data["data"]:
         return None
