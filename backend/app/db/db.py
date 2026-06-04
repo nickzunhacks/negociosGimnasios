@@ -6,9 +6,9 @@ import os
 
 load_dotenv() # Carga las variables de entorno puestas en el .env
 
-SQLITE_URL = os.getenv("sqlite") # Variable de entorno para crecenciales sensibles
+URL = os.getenv("NEON") # Variable de entorno para crecenciales sensibles
 
-engine = create_engine(SQLITE_URL) # El motor es creada por la funcuon create_engine y como parametro recibe la url esplicada arriba
+engine = create_engine(URL) # El motor es creada por la funcuon create_engine y como parametro recibe la url esplicada arriba
 
 def create_all_tables(app: FastAPI): # Funcion que crea todas las tablas antes de que inicie la app
     SQLModel.metadata.create_all(engine)
