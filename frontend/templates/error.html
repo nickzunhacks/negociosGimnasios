@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% include 'navbar.html' %}
+
+    <div class="mt-4 container-fluid min-vh-70 d-flex justify-content-center align-items-center">
+
+        <div class="card w-30">
+          <img src="{{ url_for('static', path='img/' + imagen) }}" class="card-img-top" alt="...">
+          <div class="card-body">
+               <h5 class="card-title">{{ error_code }}</h5>
+               <p class="card-text">{{ error_msg }}</p>
+               <div class="d-flex align-items-center gap-2">
+                   <a href="/" class="btn btn-primary">
+                       inicio
+                   </a>
+                   <a href="/gym-registration" class="btn btn-primary">
+                       reintentar
+                   </a>
+                </div>
+             </div>
+        </div>
+    </div>
+{% endblock %}
