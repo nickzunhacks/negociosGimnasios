@@ -1,6 +1,5 @@
-{% extends 'header.html' %}
+{% extends 'base.html' %}
 {% block links %}
-<link rel="stylesheet" href="{{ url_for('static', path='css/home.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', path='css/mapa.css') }}">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -47,11 +46,11 @@
     <div id="map"></div>
 
     <div class="card" style="width: 18rem;">
-        <img id="img" src="https://www.2playbook.com/uploads/s1/39/92/67/lifter-crew-valencia-8.jpeg"
+        <img id="img" src="{{ url_for('static', path='img/img_icon.png') }}"
              class="card-img-top" alt="...">
         <div class="card-body">
-            <h5 id="nombre" class="card-title">titulo gym</h5>
-            <p id="descripcion" class="card-text">descripcion gimnasio</p>
+            <h5 id="nombre" class="card-title">selecciona un gimnasio</h5>
+            <p id="descripcion" class="card-text"></p>
             <a href="#" class="btn btn-primary">ver gimnasio</a>
         </div>
     </div>
