@@ -9,7 +9,11 @@
 
 <body>
 
-{% include 'navbar.html' %}
+{% if mod == 'person' %}
+    {% include 'navbar.html' %}
+{% elif mod == 'owner' %}
+    {% include 'navbarowner.html' %}
+{% endif %}
 
 <form method="get" action="/location-search">
 
