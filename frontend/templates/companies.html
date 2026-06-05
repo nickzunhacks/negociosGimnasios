@@ -1,0 +1,21 @@
+{% extends 'base.html' %}}
+
+{% block content %}
+
+<body>
+
+{% include 'navbarowner.html' %}
+
+<div class="container-fluid d-flex flex-column align-items-center p-4">
+
+    {% for company in companies %}
+        {% include "card_company.html" %}
+    {% endfor %}
+
+</div>
+
+</body>
+</html>
+
+
+{% endblock %}
