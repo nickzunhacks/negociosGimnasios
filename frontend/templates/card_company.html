@@ -1,0 +1,16 @@
+<div class="card w-50 mb-4">
+  <img src="{{ company.logoUrl }}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{ company.name }}</h5>
+    <p class="card-text">{{ company.phone }}</p>
+      <p class="card-text">{{ company.email }}</p>
+    <div class="d-flex align-items-center gap-2">
+      <a href="/locations-company?id_company={{ company.id_company }}&id_owner={{ company.id_owner }}" class="btn btn-primary">ver gimnasios</a>
+      <a href="/gym-registration?id_company={{ company.id_company }}" class="btn btn-primary">crear gimnasio</a>
+    </div>
+    <div class="d-flex align-items-center gap-2 mt-3">
+      <a href="/locations-company?id_company={{ company.id_company }}&id_owner={{ company.id_owner }}" class="btn btn-warning">editar</a>
+      <a href="/gym-registration?id_company={{ company.id_company }}" class="btn btn-danger">borrar</a>
+    </div>
+  </div>
+</div>
