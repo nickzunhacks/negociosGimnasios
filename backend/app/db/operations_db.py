@@ -2,10 +2,10 @@ from sqlmodel import Session, select, or_, and_
 
 from models.gymTypes import GymTypes
 from models.location import Location, LocationId
-from models.company import Company, CompanyId
+from models.company import Company, CompanyId, CompanyUpdate
 from models.equipment import EquipmentId, Equipment
-from middlewares.geolocation_converter import coordenadas
-from middlewares.suprabase import save_img
+from models.owner import Owner, OwnerId
+
 
 async def create_company(company: Company, session: Session):
     new_company = CompanyId.model_validate(company)
@@ -35,6 +35,13 @@ async def create_equipment(equipment: Equipment, session: Session):
     session.commit()
     session.refresh(new_equipment)
     return new_equipment
+
+def create_owner(owner: Owner, session: Session):
+    new_owner = OwnerId.model_validate(owner)
+    session.add(new_owner)
+    session.commit()
+    session.refresh(new_owner)
+    return new_owner
 
 def show_companies(session: Session):
     companies = session.exec(select(CompanyId)).all()
@@ -70,6 +77,9 @@ def show_equipment_gym(session: Session, id: int):
 
     return session.exec( select(EquipmentId).where(EquipmentId.id_location == id) ).all()
 
+def show_all_companies(session: Session, id_owner: int):
+    return session.exec((select(CompanyId).where(CompanyId.id_owner == id_owner))).all()
+
 def find_one_location(session: Session, id_location: int):
     location = session.exec(select(LocationId).where(LocationId.id_location == id_location)).one_or_none()
 
@@ -77,3 +87,22 @@ def find_one_location(session: Session, id_location: int):
         return None
 
     return location
+
+def find_owner_email(session: Session, email: str):
+    owner = session.exec(select(OwnerId).where(OwnerId.email == email)).one_or_none()
+
+    if owner is None:
+        return None
+
+    return owner
+
+async def put_company(session: Session, company: dict, id_company: int):
+    if not company:
+        return None
+
+    company_db = session.get(CompanyId,id_company)
+
+    company_db.sqlmodel_update(company)
+    session.commit()
+    session.refresh(company_db)
+    return company_db
