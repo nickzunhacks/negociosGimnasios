@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<body>
+
+{% include 'navbarowner.html' %}
+
+<form method="post" action="/company-edit" enctype="multipart/form-data">
+
+    <div class="container-fluid min-vh-100 d-flex-column justify-content-center align-items-center" >
+
+        <div class="bg-primary border border-primary rounded-3 p-2 m-5 w-50 mx-auto">
+                <h1 class="display-1 text-center text-light">Actualizacion</h1>
+        </div>
+
+        <div class="d-flex flex-column justify-content-center
+            align-items-center col-12 col-md-8
+            col-lg-6 mx-auto bg-dark
+            border rounded-3 p-3 border-dark mt-4">
+
+            <input type="hidden" name="id_owner" value="{{ id_owner }}">
+            <input type="hidden" name="id_company" value="{{ id_company }}">
+
+            <div class="mb-4 w-100">
+                <label class="form-label text-light">nombre</label>
+                <input name="name" class="form-control flex-grow-1" placeholder="nombre">
+            </div>
+
+            <div class="mb-4 w-100">
+                <label class="form-label text-light">email</label>
+                <input type="email" name="email" class="form-control flex-grow-1" placeholder="empresa@gmail.com">
+            </div>
+
+            <div class="mb-4 w-100">
+                <label class="form-label text-light">telefono</label>
+                <input name="phone" type="number" class="form-control flex-grow-1" placeholder="numero">
+            </div>
+            <div class="mb-3">
+                    <label for="imagen" class="form-label text-light">Selecciona la nueva imagen de tu empresa</label>
+                    <input
+                        class="form-control"
+                        name="image"
+                        type="file"
+                        id="imagen"
+                        accept="image/*"
+                    >
+                </div>
+
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary m-4 btn-lg">
+                actualizar
+            </button>
+        </div>
+
+    </div>
+
+</form>
+</body>
+
+{% endblock %}
+
+</html>
