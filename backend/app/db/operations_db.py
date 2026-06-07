@@ -80,6 +80,9 @@ def show_equipment_gym(session: Session, id: int):
 def show_all_companies(session: Session, id_owner: int):
     return session.exec((select(CompanyId).where(CompanyId.id_owner == id_owner))).all()
 
+def find_one_company(session: Session, id_company: int):
+    return session.get(CompanyId,id_company)
+
 def find_one_location(session: Session, id_location: int):
     location = session.exec(select(LocationId).where(LocationId.id_location == id_location)).one_or_none()
 
