@@ -1,7 +1,7 @@
 from sqlmodel import SQLModel, Field
 
 class Company(SQLModel):
-        id_owner: int = Field(foreign_key = "ownerid.id_owner")
+        id_owner: int = Field(foreign_key = "ownerid.id_owner", ondelete = "CASCADE")
         name: str = Field(...)
         logoUrl: str = Field(...)
         phone: str = Field(...)

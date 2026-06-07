@@ -4,7 +4,7 @@ from fastapi import UploadFile
 
 class Location(SQLModel):
 
-    id_company: int = Field(foreign_key="companyid.id_company")
+    id_company: int = Field(foreign_key="companyid.id_company", ondelete="CASCADE")
     name: str = Field(min_length=1, max_length=50)
     description: str = Field(min_length=1, max_length=500)
     address: str = Field(...)

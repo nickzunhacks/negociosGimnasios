@@ -4,7 +4,7 @@ from sqlmodel import SQLModel, Field
 from models.equipmentTypes import EquipmentTypes
 
 class Equipment(SQLModel):
-    id_location: int = Field(foreign_key = "locationid.id_location")
+    id_location: int = Field(foreign_key = "locationid.id_location", ondelete = "CASCADE")
     name: str = Field(...)
     category: EquipmentTypes = Field(...)
     photo_url: str = Field(...)
