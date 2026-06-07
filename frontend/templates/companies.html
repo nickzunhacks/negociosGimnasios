@@ -8,6 +8,10 @@
 
 <div class="container-fluid d-flex flex-column align-items-center p-4">
 
+    {% if alert == 'true' %}
+            {% include 'alert.html' %}
+    {% endif %}
+
     {% for company in companies %}
         {% include "card_company.html" %}
     {% endfor %}
