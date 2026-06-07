@@ -5,6 +5,7 @@ from models.location import Location, LocationId
 from models.company import Company, CompanyId, CompanyUpdate
 from models.equipment import EquipmentId, Equipment
 from models.owner import Owner, OwnerId
+from middlewares.suprabase import delete_img
 
 
 async def create_company(company: Company, session: Session):
@@ -81,7 +82,10 @@ def show_all_companies(session: Session, id_owner: int):
     return session.exec((select(CompanyId).where(CompanyId.id_owner == id_owner))).all()
 
 def find_one_company(session: Session, id_company: int):
-    return session.get(CompanyId,id_company)
+    company = session.exec(select(CompanyId).where(CompanyId.id_company == id_company)).one_or_none()
+    if company is None:
+        return None
+    return company
 
 def find_one_location(session: Session, id_location: int):
     location = session.exec(select(LocationId).where(LocationId.id_location == id_location)).one_or_none()
@@ -109,3 +113,39 @@ async def put_company(session: Session, company: dict, id_company: int):
     session.commit()
     session.refresh(company_db)
     return company_db
+
+async def delete_company(session: Session, id_company: int):
+     company = find_one_company(session, id_company)
+     if company is None:
+         return None
+     delete_img(company.logoUrl)
+     session.delete(company)
+     session.commit()
+     return company
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
