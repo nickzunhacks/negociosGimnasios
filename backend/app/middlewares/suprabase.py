@@ -22,20 +22,20 @@ def suprabase_client():
 def save_img(file: UploadFile):
     if not file.content_type.startswith("image/"):
         raise HTTPException(status_code=415, detail="not image")
-
     content = file.file.read()
     path = file.filename
     content_type = file.content_type
-
     print(content_type)
-
     supaclient = suprabase_client()
-
     response = supaclient.storage.from_(SUPRABASE_BUCKET).upload(
         path = path,
         file = content,
         file_options= {"content-type":file.content_type},
     )
-
     url = (supaclient.storage.from_(SUPRABASE_BUCKET).get_public_url(path))
     return url
+
+def delete_img(url: str):
+    supaclient = suprabase_client()
+    path = url.split("/")[-1]
+    supaclient.storage.from_(SUPRABASE_BUCKET).remove([path])
