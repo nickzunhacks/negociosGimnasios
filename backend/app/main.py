@@ -22,7 +22,8 @@ from db.operations_db import (create_location,
                               find_one_location,
                               find_owner_email,
                               find_one_company,
-                              put_company
+                              put_company,
+                              delete_company,
                               )
 
 from models import company
@@ -269,7 +270,7 @@ async def post_equipment(equipment: Equipment, session: Conversation):
 
     return new_equipment
 
-
+# edita una empresa, los campos recibidos son opcionales
 @app.post("/company-edit")
 async def edit_company(session: Conversation, request: Request,
                 id_company: int = Form(...),
@@ -306,4 +307,32 @@ async def edit_company(session: Conversation, request: Request,
                              "owner")
 
     return RedirectResponse(f"/companies?id_owner={id_owner}", status_code=303)
+
+# borra una empresa
+
+@app.post("/company-delete")
+async def company_delete(session: Conversation,
+                   id_company: int = Form(...),
+                   id_owner: int = Form(...),):
+    await delete_company(session, id_company)
+    return RedirectResponse(f"/companies?id_owner={id_owner}", status_code=303)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
