@@ -212,7 +212,7 @@ async def post_location(request: Request,
     except:
         return error_handler(request, templates, "417", "esta compañia no existe", "417.jpg", "/", "/gym-registration","owner")
     if (location_object.pool_number < 0 or location_object.boxing_ring_number < 0):
-        return error_handler(request, templates, "417", "numero de pisinas o rings de boxeo deben ser mayor a 0", "400.jpg", "/", "/gym-registration", "owner")
+        return error_handler(request, templates, "417", "numero de pisinas o rings de boxeo deben ser mayor a 0", "400.jpg", f"/companies?id_owner={company.id_owner}", f"/gym-registration?id_company={company.id_company}", "owner")
     return RedirectResponse(f"/locations-company?id_company={id_company}&id_owner={company.id_owner}", status_code=303)
 
 # intercepta los datos del form de /owner-registration y registra el gimnasio
