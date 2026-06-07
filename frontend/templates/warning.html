@@ -1,0 +1,25 @@
+<div id="deleteModal" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmacion</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>esto borrara todos los gimnasios asociados a esta empresa</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancelar</button>
+
+        <form method="post" action="/company-delete" >
+
+            <input id="id_company" type="hidden" name="id_company" value="">
+            <input id="id_owner" type="hidden" name="id_owner" value="">
+            <button type="submit" class="btn btn-danger">borrar</button>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
