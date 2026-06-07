@@ -10,7 +10,7 @@
     </div>
     <div class="d-flex align-items-center gap-2 mt-3">
       <a href="/company-edit?id_company={{ company.id_company }}&id_owner={{ company.id_owner }}" class="btn btn-warning">editar</a>
-      <a href="/gym-registration?id_company={{ company.id_company }}" class="btn btn-danger">borrar</a>
+      <button class="btn btn-danger" onclick="deleteModal( {{ company.id_company }}, {{ company.id_owner }} )" >eliminar</button>
     </div>
   </div>
 </div>
