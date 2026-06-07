@@ -2,21 +2,26 @@ import httpx
 
 async def coordenadas(address: str):
 
-    url = "http://api.positionstack.com/v1/forward"
+    url = "https://nominatim.openstreetmap.org/search"
 
     params = {
-        "access_key": "233795959c2896606515c421f988bb5b",
-        "query": f"{address}, Bogota, Colombia",
+        "q": address,
+        "format": "json",
         "limit": 1,
+        "countrycodes": "co"
+    }
+    headers = {
+        "User-Agent": "GymApp/1.0 nicolas.rioscon@gmail.com"
     }
 
     async with httpx.AsyncClient() as client:
-        response = await client.get(url, params=params)
-        data = response.json()
+        response = await client.get(url, params=params, headers=headers)
 
-    print("coordenadas: ",data)
+    data = response.json()
 
-    if not data["data"]:
+    print(data)
+
+    if not data:
         return None
 
-    return data["data"][0]["latitude"], data["data"][0]["longitude"]
+    return (data[0]["lat"], data[0]["lon"])
