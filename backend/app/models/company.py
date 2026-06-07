@@ -14,3 +14,4 @@ class CompanyUpdate(SQLModel):
         name: str | None = None
         phone: str | None = None
         email: str | None = None
+        logoUrl: str | None = None
