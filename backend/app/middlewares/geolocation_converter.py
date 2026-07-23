@@ -6,7 +6,7 @@ async def coordenadas(address: str):
 
     params = {
         "q": address,
-        "format": "json",
+        "format": "api",
         "limit": 1,
         "countrycodes": "co"
     }
