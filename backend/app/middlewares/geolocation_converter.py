@@ -2,11 +2,12 @@ import httpx
 
 async def coordenadas(address: str):
 
+    print("direccion:", address)
     url = "https://nominatim.openstreetmap.org/search"
 
     params = {
         "q": address,
-        "format": "api",
+        "format": "jsonv2",
         "limit": 1,
         "countrycodes": "co"
     }
@@ -16,6 +17,8 @@ async def coordenadas(address: str):
 
     async with httpx.AsyncClient() as client:
         response = await client.get(url, params=params, headers=headers)
+
+    print(response)
 
     data = response.json()
 
