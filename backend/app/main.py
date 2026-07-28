@@ -6,11 +6,11 @@ from db.db import Conversation, create_all_tables
 from db.operations_location import show_locations_all
 from pathlib import Path
 from web import company as web_company, equipment as web_equipment,location as web_location, owner as web_owner
+from web.templates_config import templates
 
 BASE = Path(__file__).resolve().parent
 app = FastAPI(lifespan=create_all_tables)
 # base es la ubucacion
-templates = Jinja2Templates(directory= BASE / "web" / "templates")
 app.mount("/static", StaticFiles(directory=BASE.parent.parent / "frontend" / "static"), name="static")
 
 #ROOT
@@ -18,7 +18,7 @@ app.mount("/static", StaticFiles(directory=BASE.parent.parent / "frontend" / "st
 @app.get("/", response_class=HTMLResponse)
 async def search_gym(request: Request, session: Conversation, mod: str = "person"):
     locations = show_locations_all(session)
-    return templates.TemplateResponse(request, "buscador_gym.html", {
+    return templates.TemplateResponse(request, "location/buscador_gym.html", {
         "locations":[loc.model_dump() for loc in locations],
         "active_page":"/",
         "mod":mod
