@@ -4,18 +4,18 @@
 
 <body>
 
-{% include 'navbarowner.html' %}
+{% include 'partials/navbarowner.html' %}
 
 <div class="container-fluid d-flex flex-column align-items-center p-4">
 
     {% if alert == 'true' %}
-            {% include 'alert.html' %}
+            {% include 'partials/alert.html' %}
     {% endif %}
 
-    {% include 'warning.html' %}
+    {% include 'partials/warning.html' %}
 
     {% for company in companies %}
-        {% include "card_company.html" %}
+        {% include "company/card_company.html" %}
     {% endfor %}
 
 </div>

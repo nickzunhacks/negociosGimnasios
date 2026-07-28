@@ -3,7 +3,7 @@
 
 <body>
 
-{% include 'navbar.html' %}
+{% include 'partials/navbar.html' %}
 
 <form method="post" action="/owner-register">
 
@@ -15,7 +15,7 @@
 
         {% if alert == 'true' %}
 
-            {% include 'alert.html' %}
+            {% include 'partials/alert.html' %}
 
         {% endif %}
 

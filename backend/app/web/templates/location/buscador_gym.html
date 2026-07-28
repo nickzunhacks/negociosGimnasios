@@ -10,9 +10,9 @@
 <body>
 
 {% if mod == 'person' %}
-    {% include 'navbar.html' %}
+    {% include 'partials/navbar.html' %}
 {% elif mod == 'owner' %}
-    {% include 'navbarowner.html' %}
+    {% include 'partials/navbarowner.html' %}
 {% endif %}
 
 <form method="get" action="/location-search">
