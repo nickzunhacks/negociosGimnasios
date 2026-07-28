@@ -1,18 +1,14 @@
 from fastapi import APIRouter, Request, UploadFile, Form,File
 from fastapi.responses import RedirectResponse, HTMLResponse
-from fastapi.templating import Jinja2Templates
 from models.company import Company, CompanyUpdate
 from db.db import Conversation
-from pathlib import Path
 from middlewares.error import error_handler
 from db.operations_location import show_locations
 from db.operations_company import show_all_companies, create_company, find_one_company, put_company, delete_company
 from middlewares.suprabase import save_img, delete_img
+from web.templates_config import templates
 
 router = APIRouter()
-BASE = Path(__file__).resolve().parent
-
-templates = Jinja2Templates(directory= BASE / "templates" )
 
 # ---------------------------------------------------------------| GET |---------------------------------------------------------------
 
@@ -22,7 +18,7 @@ async def search_gym(request: Request, session: Conversation, id_company: int, i
     locations = show_locations(session, id_company)
     if len(locations) == 0:
         return error_handler(request, templates, "204", "Esta compañia no tiene gimnasios", "204.jpg", f"/companies?id_owner={id_owner}", f"/locations-company?id_company={id_company}&id_owner={id_owner}", "owner")
-    return templates.TemplateResponse(request, "buscador_gym.html", {
+    return templates.TemplateResponse(request, "location/buscador_gym.html", {
         "locations":[loc.model_dump() for loc in locations],
         "mod":'owner',
         "owner_id":id_owner,
@@ -33,18 +29,18 @@ async def search_gym(request: Request, session: Conversation, id_company: int, i
 def companies(request: Request, session: Conversation, id_owner: int):
     companies = show_all_companies(session, id_owner)
     if len(companies) == 0:
-        return templates.TemplateResponse(request, "companies.html", {"owner_id": id_owner, "companies":companies, "acitve_page":"vercompanies", "alert":"true", "alert_msg":" Crea tu compañía para agregar tus gimnasios"})
-    return templates.TemplateResponse(request, "companies.html", {"owner_id": id_owner, "companies":companies, "acitve_page":"vercompanies"})
+        return templates.TemplateResponse(request, "company/companies.html", {"owner_id": id_owner, "companies":companies, "acitve_page":"vercompanies", "alert":"true", "alert_msg":" Crea tu compañía para agregar tus gimnasios"})
+    return templates.TemplateResponse(request, "company/companies.html", {"owner_id": id_owner, "companies":companies, "acitve_page":"vercompanies"})
 
 # entrega el form del registro de una empresa
 @router.get("/company-form")
 def get_company_form(request: Request, owner_id: int):
-    return templates.TemplateResponse(request, "form_company.html", {"owner_id": owner_id, "mod": "owner", "active_page":"registro" })
+    return templates.TemplateResponse(request, "company/form_company.html", {"owner_id": owner_id, "mod": "owner", "active_page":"registro" })
 
 # Entrega el form para actualizar a una empresa
 @router.get("/company-edit")
 def company_edit(request: Request, id_company: int, id_owner: int):
-    return templates.TemplateResponse(request, "form_company_update.html", {"id_company":id_company, "id_owner":id_owner})
+    return templates.TemplateResponse(request, "company/form_company_update.html", {"id_company":id_company, "id_owner":id_owner})
 
 # ---------------------------------------------------------------| POST |---------------------------------------------------------------
 

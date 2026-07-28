@@ -10,25 +10,23 @@ from middlewares.error import error_handler
 from middlewares.suprabase import save_img
 from db.operations_location import show_locations_filtered, create_location
 from db.operations_company import find_one_company
-from pathlib import Path
+from web.templates_config import templates
 
 router = APIRouter()
-BASE = Path(__file__).resolve().parent
 
-templates = Jinja2Templates(directory= BASE / "templates")
 
 # ---------------------------------------------------------------| GET |---------------------------------------------------------------
 
 #entrega el form del registro de un nuevo gym
 @router.get("/gym-registration", response_class=HTMLResponse)
 async def gym_registration(request: Request, id_company: int):
-    return templates.TemplateResponse(request,"registro_gym.html", { "active_page":"/gym-registration", "id_company":id_company})
+    return templates.TemplateResponse(request,"location/registro_gym.html", { "active_page":"/gym-registration", "id_company":id_company})
 
 # busca los gimnaios por categoria y nombre, si nombre no es enviado solo filtra por categorias
 @router.get("/location-search", response_class=HTMLResponse)
 async def search_location(name: str, category: GymTypes, session: Conversation, request: Request):
     locations = show_locations_filtered(name, category, session)
-    return templates.TemplateResponse(request, "buscador_gym.html", {"locations":[loc.model_dump() for loc in locations], "mod":"person", "active_page":"/"})
+    return templates.TemplateResponse(request, "location/buscador_gym.html", {"locations":[loc.model_dump() for loc in locations], "mod":"person", "active_page":"/"})
 
 # ---------------------------------------------------------------| POST |---------------------------------------------------------------
 
@@ -77,7 +75,7 @@ async def post_location(request: Request,
         return error_handler(request, templates, "417", "esta compañia no existe", "417.jpg", "/", "/gym-registration","owner")
     if (location_object.pool_number < 0 or location_object.boxing_ring_number < 0):
         return error_handler(request, templates, "417", "numero de pisinas o rings de boxeo deben ser mayor a 0", "400.jpg", f"/companies?id_owner={company.id_owner}", f"/gym-registration?id_company={company.id_company}", "owner")
-    return RedirectResponse(f"/locations-company?id_company={id_company}&id_owner={company.id_owner}", status_code=303)
+    return RedirectResponse(f"locations-company?id_company={id_company}&id_owner={company.id_owner}", status_code=303)
 
 # ---------------------------------------------------------------| UPDATE |-------------------------------------------------------------
 
